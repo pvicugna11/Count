@@ -6,18 +6,29 @@ using UnityEngine.UI;
 
 public class Counter : MonoBehaviour
 {
-    public Text CounterText;
+    public Text sphereCounterText;
+    public Text cubeCounterText;
 
-    private int Count = 0;
-
-    private void Start()
-    {
-        Count = 0;
-    }
+    private int sphereCount = 0;
+    private int cubeCount = 0;
 
     private void OnTriggerEnter(Collider other)
     {
-        Count += 1;
-        CounterText.text = "Count : " + Count;
+        switch (other.tag)
+        {
+            case "Cube":
+                Count(ref cubeCount, cubeCounterText, "Cube");
+                break;
+
+            case "Sphere":
+                Count(ref sphereCount, sphereCounterText, "Sphere");
+                break;
+        }
+    }
+
+    private void Count(ref int count, Text counterText, string objName)
+    {
+        count++;
+        counterText.text = objName + " Count : " + count;
     }
 }
